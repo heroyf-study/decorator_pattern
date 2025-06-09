@@ -19,8 +19,11 @@ public class CountFileInputStream extends InputStream {
 
     @Override
     public int read() throws IOException {
-        readCount.incrementAndGet();
-        return this.delegate.read();
+        int readIdx = this.delegate.read();
+        if (readIdx != -1) {
+            return readCount.incrementAndGet();
+        }
+        return readIdx;
     }
 
     public int getReadCount() {
