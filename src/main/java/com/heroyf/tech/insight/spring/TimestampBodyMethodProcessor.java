@@ -2,18 +2,12 @@ package com.heroyf.tech.insight.spring;
 
 import java.util.List;
 import java.util.Map;
-import javax.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.MethodParameter;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
 
@@ -41,8 +35,9 @@ public class TimestampBodyMethodProcessor implements HandlerMethodArgumentResolv
     public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer,
             NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
         this.setupProcessor();
-        Object result = this.processor.resolveArgument(methodParameter, modelAndViewContainer, nativeWebRequest, webDataBinderFactory);
-        if (!(result instanceof Map)){
+        Object result = this.processor.resolveArgument(methodParameter, modelAndViewContainer, nativeWebRequest,
+                webDataBinderFactory);
+        if (!(result instanceof Map)) {
             return result;
         }
         ((Map) result).put("timestamp", System.currentTimeMillis());
